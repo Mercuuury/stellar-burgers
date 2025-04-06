@@ -126,8 +126,6 @@ const App = () => {
           />
         </Routes>
       )}
-
-      <ConstructorPage />
     </div>
   );
 };
