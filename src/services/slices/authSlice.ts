@@ -66,18 +66,44 @@ const authSlice = createSlice({
         state.isLoading = false;
       })
 
+      .addCase(fetchUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.isAuthenticated = true;
       })
+      .addCase(fetchUser.rejected, (state, action) => {
+        state.error = action.error.message || 'Fetch user failed';
+        state.isLoading = false;
+        state.isAuthenticated = false;
+        state.user = null;
+      })
 
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.user = action.payload.user;
       })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.error = action.error.message || 'Update user failed';
+        state.isLoading = false;
+      })
 
+      .addCase(logoutUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
       .addCase(logoutUser.fulfilled, (state) => {
         state.user = null;
         state.isAuthenticated = false;
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.error = action.error.message || 'Logout failed';
+        state.isLoading = false;
       });
   }
 });
